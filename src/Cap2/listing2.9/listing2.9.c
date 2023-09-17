@@ -1,5 +1,6 @@
-#include <stdio.h> 
-#include <tiffio.h> 
+#include <stdio.h>
+#include <tiff.h>
+
 int main (int argc, char** argv) 
 { 
   TIFF* tiff; 
