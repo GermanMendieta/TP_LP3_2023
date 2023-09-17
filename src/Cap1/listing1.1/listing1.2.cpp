@@ -1,5 +1,6 @@
 #include <assert.h> 
-#include "../listing1.3/listing1.3.hpp" 
+#include "listing1.3.hpp" 
+
 double reciprocal (int i) { 
  // I should be non-zero. 
  assert (i != 0); 

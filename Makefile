@@ -22,10 +22,12 @@ $(eval DIRS := $(shell basename -a $(shell find $(SRC_DIR) -type d -name listing
  # Crear un objetivo que aplica la regla a cada archivo 
 all: $(DIRS) 
 	@for file in $^; do \ 
-	$(MAKE) "$$file"; \ 
-	done 
+		$(MAKE) "$$file"; \ 
+		done 
   
 clean:  
 	@rm $(BUILD_DIR) -rf 
+
+
   
 .PHONY: clean all
