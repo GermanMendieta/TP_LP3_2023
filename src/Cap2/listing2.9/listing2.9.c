@@ -1,10 +1,11 @@
 #include <stdio.h>
-#include <tiff.h>
+// #include <tiff.h>
 
+// hay que espeficar la ruta del archivo
 int main (int argc, char** argv) 
 { 
-  TIFF* tiff; 
-  tiff = TIFFOpen (argv[1], "r"); 
-  TIFFClose (tiff); 
+  FILE* tiff; 
+  tiff = fopen (argv[1], "r"); 
+  fclose(tiff); 
   return 0; 
 }
