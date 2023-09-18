@@ -5,10 +5,8 @@
 #include <string.h> 
 #include <stdio.h> 
 
-#define MAX_JOBS 3
-
-/* Time job*/
-int time = 2;
+/* MAX OF JOBS */
+#define MAX_JOBS 15
 
 
 struct job { 
@@ -21,8 +19,8 @@ struct job {
 struct job* job_queue; 
 
 void process_job (struct job* jobs){
-  printf("Job %dth finished", jops->n_job );
-  sleep (time);
+  sleep (1);
+  printf("Job %dth finished\n", jobs->n_job );
 }
 
 
@@ -45,9 +43,26 @@ void* thread_function (void* arg)
 
 /* iniicalizar los trabajos */
 void init_jobs(){
-  int n = 0;
-  while (n++ < MAX_JOBS){
-    struct job* next_job = (struct job* ) malloc (sizeof(struct job));
+  // initial Job
+  struct job* new_job = (struct job* ) malloc (sizeof(struct job));
+  new_job->n_job = 1;
+  new_job->next = NULL;
+
+  job_queue = new_job;
+  int n = 1;
+
+  // joion queue to add jobs
+  while (n < MAX_JOBS){
+    new_job = (struct job* ) malloc (sizeof(struct job));
+    new_job->n_job = 1 + n++;
+    new_job->next = NULL;
+    
+    struct job* jobs = job_queue;
+    while (jobs->next){
+      jobs = jobs->next;
+    }
+    
+    jobs->next = new_job;
   }
 }
 
@@ -59,7 +74,7 @@ int main ()
   pthread_t thread2; 
   
   pthread_create (&thread1, NULL, &thread_function, NULL); 
-  pthread_create (&thread1, NULL, &thread_function, NULL); 
+  pthread_create (&thread2, NULL, &thread_function, NULL); 
 
 
   pthread_join(thread1, NULL);
