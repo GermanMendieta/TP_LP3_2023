@@ -3,15 +3,9 @@ listing_1.1: ./src/CAP_1/listing_1.1/listing_1.1.c
 	gcc $(CFLAGS) -c ./src/CAP_1/listing_1.1/listing_1.1.c -o ./build/CAP_1/listing_1.1/listing_1.1.o
 	g++ -o ./build/CAP_1/listing_1.1/listing_1.1 ./build/CAP_1/listing_1.1/listing_1.1.o ./src/CAP_1/listing_1.1/reciprocal.cpp
 
-listing_1.2: ./src/CAP_1/listing_1.2/listing_1.2.c
-	mkdir -p build/CAP_1/listing_1.2
-	gcc $(CFLAGS) -c ./src/CAP_1/listing_1.2/listing_1.2.c -o ./build/CAP_1/listing_1.2/listing_1.2.o
-	g++ -o ./build/CAP_1/listing_1.2/listing_1.2 ./build/CAP_1/listing_1.2/listing_1.2.o
+listing_1.2: listing_1.1
 
-listing_1.3: ./src/CAP_1/listing_1.3/listing_1.3.c
-	mkdir -p build/CAP_1/listing_1.3
-	gcc $(CFLAGS) -c ./src/CAP_1/listing_1.3/listing_1.3.c -o ./build/CAP_1/listing_1.3/listing_1.3.o
-	g++ -o ./build/CAP_1/listing_1.3/listing_1.3 ./build/CAP_1/listing_1.3/listing_1.3.o
+listing_1.3: listing_1.1
 
 listing_2.1: ./src/CAP_2/listing_2.1/listing_2.1.c
 	mkdir -p build/CAP_2/listing_2.1
@@ -43,15 +37,14 @@ listing_2.6: ./src/CAP_2/listing_2.6/listing_2.6.c
 	gcc $(CFLAGS) -c ./src/CAP_2/listing_2.6/listing_2.6.c -o ./build/CAP_2/listing_2.6/listing_2.6.o
 	g++ -o ./build/CAP_2/listing_2.6/listing_2.6 ./build/CAP_2/listing_2.6/listing_2.6.o
 
-listing_2.7: ./src/CAP_2/listing_2.7/listing_2.7.c
+listing_2.7: ./src/CAP_2/listing_2.7/listing_2.7.c ./src/CAP_2/listing_2.7/listing_2.8.c
 	mkdir -p build/CAP_2/listing_2.7
-	gcc $(CFLAGS) -c ./src/CAP_2/listing_2.7/listing_2.7.c -o ./build/CAP_2/listing_2.7/listing_2.7.o
-	g++ -o ./build/CAP_2/listing_2.7/listing_2.7 ./build/CAP_2/listing_2.7/listing_2.7.o
+	gcc $(CFLAGS) -c ./src/CAP_2/listing_2.7/listing_2.7.c -o ./build/CAP_2/listing_2.7/listing_2.7.o 
+	gcc $(CFLAGS) -c ./src/CAP_2/listing_2.7/listing_2.8.c -o ./build/CAP_2/listing_2.7/listing_2.8.o 
+	ar cr ./build/CAP_2/lib_listing_2.8.a ./build/CAP_2/listing_2.7/listing_2.8.o
+	g++ -o ./build/CAP_2/listing_2.7/listing_2.7 ./build/CAP_2/listing_2.7/listing_2.7.o ./build/CAP_2/lib_listing_2.8.a
 
-listing_2.8: ./src/CAP_2/listing_2.8/listing_2.8.c
-	mkdir -p build/CAP_2/listing_2.8
-	gcc $(CFLAGS) -c ./src/CAP_2/listing_2.8/listing_2.8.c -o ./build/CAP_2/listing_2.8/listing_2.8.o
-	g++ -o ./build/CAP_2/listing_2.8/listing_2.8 ./build/CAP_2/listing_2.8/listing_2.8.o
+listing_2.8: listing_2.7
 
 listing_2.9: ./src/CAP_2/listing_2.9/listing_2.9.c
 	mkdir -p build/CAP_2/listing_2.9
@@ -90,7 +83,7 @@ listing_3.6: ./src/CAP_3/listing_3.6/listing_3.6.c
 
 listing_3.7: ./src/CAP_3/listing_3.7/listing_3.7.c
 	mkdir -p build/CAP_3/listing_3.7
-	gcc $(CFLAGS) -c ./src/CAP_3/listing_3.7/listing_3.7.c -o ./build/CAP_3/listing_3.7/listing_3.7.o
+	gcc $(CFLAGS) -c ./src/CAP_3/listing_3.7/listing_3.7.c -o ./build/CAP_3/listing_3.7/listing_3.7.o 
 	g++ -o ./build/CAP_3/listing_3.7/listing_3.7 ./build/CAP_3/listing_3.7/listing_3.7.o
 
 listing_4.1: ./src/CAP_4/listing_4.1/listing_4.1.c
@@ -171,11 +164,8 @@ listing_4.15: ./src/CAP_4/listing_4.15/listing_4.15.c
 $(eval DIRS := $(shell basename -a $(shell find $('src') -type d -name "listing*")))
 
 all: $(DIRS)
-
-	@for file in $^; do \ 
-		$(MAKE) "$$file"; \ 
-		done
-	
+	@for file in $^; do \
+		$(MAKE) "$$file"; \
 	done
 
 clean:

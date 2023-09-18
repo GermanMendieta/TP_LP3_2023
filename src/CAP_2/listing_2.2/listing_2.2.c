@@ -74,6 +74,6 @@ int main(int argc, char *argv[])
             printf("Argument: %s\n", argv[i]);
     }
     /* The main program goes here. */
-    print("Hola mundo\n");
+    printf("Hola mundo\n");
     return 0;
 }

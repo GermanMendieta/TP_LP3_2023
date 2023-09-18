@@ -1,5 +1,5 @@
 #include <stdio.h>
-// #include <tiff.h>
+//#include <tiff.h>
 
 // hay que espeficar la ruta del archivo
 int main (int argc, char** argv) 
